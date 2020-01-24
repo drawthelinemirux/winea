@@ -1,0 +1,67 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="wineaApp.requestLeave.home.title">Request Leaves</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-request-leave" [routerLink]="['/request-leave/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span  jhiTranslate="wineaApp.requestLeave.home.createLabel">
+            Create a new Request Leave
+            </span>
+        </button>
+    </h2>
+    <jhi-alert-error></jhi-alert-error>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="alert alert-warning" *ngIf="requestLeaves?.length === 0">
+        <span jhiTranslate="wineaApp.requestLeave.home.notFound">No requestLeaves found</span>
+    </div>
+    <div class="table-responsive" *ngIf="requestLeaves?.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="reset.bind(this)">
+            <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="startDate"><span jhiTranslate="wineaApp.requestLeave.startDate">Start Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="endDate"><span jhiTranslate="wineaApp.requestLeave.endDate">End Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="employeeid"><span jhiTranslate="wineaApp.requestLeave.employeeid">Employeeid</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="acceptedLeave"><span jhiTranslate="wineaApp.requestLeave.acceptedLeave">Accepted Leave</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="employee.id"><span jhiTranslate="wineaApp.requestLeave.employee">Employee</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+            <tr *ngFor="let requestLeave of requestLeaves ;trackBy: trackId">
+                <td><a [routerLink]="['/request-leave', requestLeave.id, 'view' ]">{{requestLeave.id}}</a></td>
+                <td>{{requestLeave.startDate | date:'medium'}}</td>
+                <td>{{requestLeave.endDate | date:'medium'}}</td>
+                <td>{{requestLeave.employeeid}}</td>
+                <td>{{requestLeave.acceptedLeave}}</td>
+                <td>
+                    <div *ngIf="requestLeave.employee">
+                        <a [routerLink]="['/employee', requestLeave.employee?.id, 'view' ]" >{{requestLeave.employee?.id}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group">
+                        <button type="submit"
+                                [routerLink]="['/request-leave', requestLeave.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/request-leave', requestLeave.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit" (click)="delete(requestLeave)"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

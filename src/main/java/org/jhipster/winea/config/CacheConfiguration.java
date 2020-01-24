@@ -42,6 +42,20 @@ public class CacheConfiguration {
             createCache(cm, org.jhipster.winea.domain.User.class.getName());
             createCache(cm, org.jhipster.winea.domain.Authority.class.getName());
             createCache(cm, org.jhipster.winea.domain.User.class.getName() + ".authorities");
+            createCache(cm, org.jhipster.winea.domain.Region.class.getName());
+            createCache(cm, org.jhipster.winea.domain.Country.class.getName());
+            createCache(cm, org.jhipster.winea.domain.Location.class.getName());
+            createCache(cm, org.jhipster.winea.domain.Department.class.getName());
+            createCache(cm, org.jhipster.winea.domain.Department.class.getName() + ".employees");
+            createCache(cm, org.jhipster.winea.domain.Task.class.getName());
+            createCache(cm, org.jhipster.winea.domain.Task.class.getName() + ".jobs");
+            createCache(cm, org.jhipster.winea.domain.Employee.class.getName());
+            createCache(cm, org.jhipster.winea.domain.Employee.class.getName() + ".jobs");
+            createCache(cm, org.jhipster.winea.domain.Employee.class.getName() + ".requestleaves");
+            createCache(cm, org.jhipster.winea.domain.Job.class.getName());
+            createCache(cm, org.jhipster.winea.domain.Job.class.getName() + ".tasks");
+            createCache(cm, org.jhipster.winea.domain.RequestLeave.class.getName());
+            createCache(cm, org.jhipster.winea.domain.JobHistory.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }

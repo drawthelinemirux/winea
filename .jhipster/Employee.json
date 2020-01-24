@@ -1,0 +1,78 @@
+{
+    "name": "Employee",
+    "fields": [
+        {
+            "fieldName": "employeeid",
+            "javadoc": "The firstname attribute.",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "firstName",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "lastName",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "email",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "phoneNumber",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "hireDate",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "salary",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "commissionPct",
+            "fieldType": "Long"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "job",
+            "otherEntityRelationshipName": "employee",
+            "relationshipName": "job"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "requestLeave",
+            "otherEntityRelationshipName": "employee",
+            "relationshipName": "requestleave"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "employee",
+            "otherEntityRelationshipName": "employee",
+            "relationshipName": "manager",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "department",
+            "otherEntityRelationshipName": "employee",
+            "javadoc": "Another side of the same relationship",
+            "relationshipName": "department",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20200124074425",
+    "javadoc": "The Employee entity.",
+    "entityTableName": "employee",
+    "dto": "no",
+    "pagination": "infinite-scroll",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}

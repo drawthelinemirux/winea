@@ -1,0 +1,26 @@
+{
+  "wineaApp": {
+    "requestLeave": {
+      "home": {
+        "title": "Request Leaves",
+        "createLabel": "Create a new Request Leave",
+        "createOrEditLabel": "Create or edit a Request Leave",
+        "notFound": "No Request Leaves found"
+      },
+      "created": "A new Request Leave is created with identifier {{ param }}",
+      "updated": "A Request Leave is updated with identifier {{ param }}",
+      "deleted": "A Request Leave is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Request Leave {{ id }}?"
+      },
+      "detail": {
+        "title": "Request Leave"
+      },
+      "startDate": "Start Date",
+      "endDate": "End Date",
+      "employeeid": "Employeeid",
+      "acceptedLeave": "Accepted Leave",
+      "employee": "Employee"
+    }
+  }
+}
