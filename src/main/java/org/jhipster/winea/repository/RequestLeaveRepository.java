@@ -11,5 +11,5 @@ import org.springframework.stereotype.Repository;
 @SuppressWarnings("unused")
 @Repository
 public interface RequestLeaveRepository extends JpaRepository<RequestLeave, Long> {
-
+RequestLeave findByEmployeeId(Long employeeid);
 }

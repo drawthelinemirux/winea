@@ -37,6 +37,10 @@ public interface RequestLeaveService {
      */
     Optional<RequestLeave> findOne(Long id);
 
+    /**Get the employeeid requestLeave */
+
+    RequestLeave findByEmployeeId(Long employeeid);
+
     /**
      * Delete the "id" requestLeave.
      *

@@ -2,7 +2,10 @@ package org.jhipster.winea.service.impl;
 
 import org.jhipster.winea.service.RequestLeaveService;
 import org.jhipster.winea.domain.RequestLeave;
+import org.jhipster.winea.security.SecurityUtils;
 import org.jhipster.winea.repository.RequestLeaveRepository;
+import org.jhipster.winea.repository.UserRepository;
+import org.jhipster.winea.domain.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,9 +26,13 @@ public class RequestLeaveServiceImpl implements RequestLeaveService {
     private final Logger log = LoggerFactory.getLogger(RequestLeaveServiceImpl.class);
 
     private final RequestLeaveRepository requestLeaveRepository;
+    private final UserRepository userRepository;
+    
 
-    public RequestLeaveServiceImpl(RequestLeaveRepository requestLeaveRepository) {
+    public RequestLeaveServiceImpl(RequestLeaveRepository requestLeaveRepository,UserRepository userRepository) {
         this.requestLeaveRepository = requestLeaveRepository;
+        this.userRepository = userRepository;
+    
     }
 
     /**
@@ -37,6 +44,16 @@ public class RequestLeaveServiceImpl implements RequestLeaveService {
     @Override
     public RequestLeave save(RequestLeave requestLeave) {
         log.debug("Request to save RequestLeave : {}", requestLeave);
+        
+        Optional<String>currentUserId = SecurityUtils.getCurrentUserLogin();
+        String currentUserIdS = currentUserId.orElse(new String(""));
+        Optional<User> currentUser = userRepository.findOneByLogin(currentUserIdS);
+        if(currentUser!=null && currentUser.get().getId()!=null){
+            requestLeave.setEmployeeid(currentUser.get().getId());
+        }
+        requestLeave.setAcceptedLeave(0L);
+        requestLeave.setStartDate(requestLeave.getStartDate());
+        requestLeave.setEndDate(requestLeave.getEndDate());
         return requestLeaveRepository.save(requestLeave);
     }
 
@@ -65,6 +82,12 @@ public class RequestLeaveServiceImpl implements RequestLeaveService {
     public Optional<RequestLeave> findOne(Long id) {
         log.debug("Request to get RequestLeave : {}", id);
         return requestLeaveRepository.findById(id);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public RequestLeave findByEmployeeId(Long employeeid){
+        return requestLeaveRepository.findByEmployeeId(employeeid);
     }
 
     /**
