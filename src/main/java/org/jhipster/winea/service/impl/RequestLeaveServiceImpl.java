@@ -67,7 +67,12 @@ public class RequestLeaveServiceImpl implements RequestLeaveService {
     @Transactional(readOnly = true)
     public Page<RequestLeave> findAll(Pageable pageable) {
         log.debug("Request to get all RequestLeaves");
-        return requestLeaveRepository.findAll(pageable);
+        Optional<String>currentUserId = SecurityUtils.getCurrentUserLogin();
+        String currentUserIdS = currentUserId.orElse(new String(""));  
+        Optional<User> currentUser = userRepository.findOneByLogin(currentUserIdS);
+        //return requestLeaveRepository.findAll(pageable);
+        return requestLeaveRepository.findByEmployeeid(currentUser.get().getId(),pageable);
+
     }
 
 
@@ -84,11 +89,11 @@ public class RequestLeaveServiceImpl implements RequestLeaveService {
         return requestLeaveRepository.findById(id);
     }
 
-    @Override
-    @Transactional(readOnly = true)
-    public RequestLeave findByEmployeeId(Long employeeid){
-        return requestLeaveRepository.findByEmployeeId(employeeid);
-    }
+    // @Override
+    // @Transactional(readOnly = true)
+    // public Page<RequestLeave> findByEmployeeId(Long employeeid,Pageable pageable){
+    //     return requestLeaveRepository.findByEmployeeId(employeeid,pageable);
+    // }
 
     /**
      * Delete the requestLeave by id.
@@ -100,4 +105,5 @@ public class RequestLeaveServiceImpl implements RequestLeaveService {
         log.debug("Request to delete RequestLeave : {}", id);
         requestLeaveRepository.deleteById(id);
     }
+
 }

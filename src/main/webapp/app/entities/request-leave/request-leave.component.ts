@@ -62,6 +62,9 @@ export class RequestLeaveComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.loadAll();
+    /* eslint-disable no-console */
+    console.log(this.requestLeaves);
+    /* eslint-enable no-console */
     this.registerChangeInRequestLeaves();
   }
 

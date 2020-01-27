@@ -39,7 +39,7 @@ public interface RequestLeaveService {
 
     /**Get the employeeid requestLeave */
 
-    RequestLeave findByEmployeeId(Long employeeid);
+    Page<RequestLeave> findByEmployeeId(Long employeeid, Pageable pageable);
 
     /**
      * Delete the "id" requestLeave.
